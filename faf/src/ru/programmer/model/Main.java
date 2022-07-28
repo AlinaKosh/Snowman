@@ -11,59 +11,64 @@ import ru.programmer.model.cinema.person.Sellers;
 import ru.programmer.model.cinema.products.Candy;
 import ru.programmer.model.cinema.products.Popcorn;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class Main extends JComponent{
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        JFrame jFrame = new JFrame();
-        jFrame.setVisible(true);
-        jFrame.setBackground(Color.BLUE);
-        jFrame.setSize(750,750);
-        jFrame.setDefaultCloseOperation(jFrame.EXIT_ON_CLOSE);
-        jFrame.setLocation(500,290);
-        jFrame.getContentPane().add(new Main());
-
+        JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle("Паучок");
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        frame.setBounds(dim.width/2-width/2,dim.height/2-height/2, width,height);
+        frame.setVisible(true);
+        Spider spider = new Spider();
+        frame.add(spider);
 
     }
+    static int width = 400, height=400;//размеры окна
 
-    public void paint(Graphics graphics){
-        graphics.setColor(Color.BLUE);
-        graphics.fillOval(230,450,260,210);
-        graphics.fillOval(270,360,190,140);
-        graphics.fillOval(300,280,130,100);
-        graphics.setColor(Color.ORANGE);
-        graphics.fillOval(350,400,15,15);
-        graphics.fillOval(350,420,15,15);
-        graphics.fillOval(350,440,15,15);
-        graphics.setColor(Color.YELLOW);
-        graphics.fillOval(330,310,20,30);
-        graphics.fillOval(380,310,20,30);
-        graphics.setColor(Color.BLACK);
-        graphics.fillOval(333,315,10,10);
-        graphics.fillOval(389,325,10,10);
-        graphics.setColor(Color.RED);
-        graphics.fillArc(346,335,40,30,0,-180);
-        graphics.setColor(Color.ORANGE);
-        graphics.fillArc(324,320,50,40,0,40);
-        graphics.setColor(Color.DARK_GRAY);
-        graphics.fillOval(295,260,150,35);
-        graphics.fillRoundRect(320,155,100,120,20,15);
-        graphics.setColor(Color.PINK);
-        graphics.fillRoundRect(320,230,100,40,20,15);
-        graphics.setColor(Color.BLACK);
-        graphics.drawLine(280,420,170,280);
-        graphics.drawLine(190,250,170,280);
-        graphics.drawLine(200,270,170,280);
-        graphics.drawLine(147,270,170,280);
-        graphics.drawLine(450,420,570,280);
-        graphics.drawLine(540,250,570,280);
-        graphics.drawLine(560,250,570,280);
-        graphics.drawLine(600,260,570,280);
+    static class Spider extends Canvas{
+        public void paint(Graphics graphics){
+            Graphics2D g2 = (Graphics2D) graphics; //преобразуем Graphics в Graphics2D (для сглаживания)
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON); //сглаживание
+            g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            try {
+                URLConnection openConnection = new URL("https://img-winapps.lisisoft.com/imgmic/6/0/2006-1-spider-exterminator-e1cbd0ff42b8.png").openConnection();
+                openConnection.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
+                BufferedImage image = ImageIO.read(openConnection.getInputStream());
+                int imageWidth = image.getWidth(), imageHeight=image.getHeight();
+                int y = 0, x = 0;
+                while (true) {//двигаемся по диагонали, с очисткой области через паузу
+                    if (x>width||y>height) {//если вышли за пределы окна, то все заново
+                        y = 0;
+                        x = 0;
+                    }
+                    g2.drawImage(image, x, y, this);
+                    TimeUnit.MILLISECONDS.sleep(30);
+                    g2.clearRect(x, y, imageWidth, imageHeight);
+                    x+=3;
+                    y+=3;
+                }
+            } catch (Exception ex){
+                graphics.drawString("Error",5,5);
+            }
+        }
     }
+
+
 }
