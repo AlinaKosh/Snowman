@@ -20,7 +20,7 @@ public class Main extends Canvas{
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON); //сглаживание
             g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
             try {
-                URLConnection openConnection = new URL("https://schach-seminare.eu/components/com_jshopping/files/img_products/thumb_BE.png").openConnection();
+                URLConnection openConnection = new URL("https://tgram.ru/wiki/stickers/img/rmrick/png/6.png").openConnection();
                 openConnection.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
                 BufferedImage image = ImageIO.read(openConnection.getInputStream());
                 int imageWidth = image.getWidth(), imageHeight=image.getHeight();
