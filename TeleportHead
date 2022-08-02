@@ -1,0 +1,55 @@
+public class Main extends JFrame {
+
+    public static void main(String[] args) throws IOException {
+
+        new MyFrame();
+    }
+
+}
+
+//САМО РЕШЕНИЕ В КЛАССЕ
+public class MyFrame extends JFrame implements KeyListener {
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+        switch (e.getKeyChar()) {
+            case 'a' -> label.setLocation((label.getX() - speed>=0?label.getX() - speed:(int) this.getContentPane().getSize().getWidth()-label.getWidth()-5), label.getY());
+            case 'w' -> label.setLocation(label.getX(), (label.getY()-speed>=0?label.getY()-speed:(int) this.getContentPane().getSize().getHeight()-label.getHeight()+5));
+            case 'd' -> label.setLocation((label.getX()+speed<(int) this.getContentPane().getSize().getWidth()-label.getWidth()?label.getX()+speed:5), label.getY());
+            case 's' -> label.setLocation(label.getX(), (label.getY()+speed<(int) this.getContentPane().getSize().getHeight()-label.getHeight()?label.getY()+speed:5));
+        }
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        System.out.println("Released: "+e.getKeyChar());
+        System.out.println("Code: " + e.getKeyCode());
+    }
+
+    JLabel label;
+    static int width = 800, height = 600;//размеры окна
+    private int speed=20;
+    MyFrame() throws IOException {
+
+        this.setVisible(true); // окошко
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //для его закрытия
+        this.setTitle("Пикассо");
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setBounds(dim.width / 2 - width / 2, dim.height / 2 - height / 2, width, height + 30);
+        this.addKeyListener(this);
+
+        BufferedImage image = ImageIO.read(new URL("https://tgram.ru/wiki/stickers/img/rmrick/png/6.png"));//скачиваем картинку
+        JPanel panel = new JPanel (new FlowLayout(FlowLayout.LEFT));//создаем панель, чтобы ей отлавливать события клавиатуры, ставим ее слева
+        panel.setFocusable(true);//делаем у панели возможность принимать фокус, иначе она не сможет отловить события клавиатуры
+        label = new JLabel(new ImageIcon(image),JLabel.RIGHT);//создаем объект слева
+        panel.add(label, BorderLayout.NORTH);//добавляем на панель
+        this.add(panel);//добавляем панель на форму
+
+    }
+}
