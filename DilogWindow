@@ -1,0 +1,10 @@
+public class Main {
+
+    public static void main(String[] args) {
+        //СРАЗУ 2 ЗАДАНИЯ
+        String name = JOptionPane.showInputDialog("Введите имя: ");
+        JOptionPane.showMessageDialog(null,name);
+        JOptionPane.showMessageDialog(null,"Alinka Puf");
+    }
+
+}
