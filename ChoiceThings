@@ -1,0 +1,10 @@
+public class Main {
+
+    public static void main(String[] args) {
+
+        String[] nameDrinks = {"Вода","Кола","Пиво","Сок"};
+        Object result = JOptionPane.showInputDialog(null, "Выберите напиток","Выбор",JOptionPane.INFORMATION_MESSAGE,null,nameDrinks,nameDrinks[0]);
+        JOptionPane.showMessageDialog(null,result);
+    }
+
+}
