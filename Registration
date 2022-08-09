@@ -1,0 +1,66 @@
+public class Main {
+
+    //ДЛЯ ПРОБЕЛОВ
+    private static boolean containsWhiteSpace(final String testCode){
+        if(testCode != null){
+            for(int i = 0; i < testCode.length(); i++){
+                if(Character.isWhitespace(testCode.charAt(i))){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    //ДЛЯ БУКВ
+    private static boolean isValidWord(String word) {
+        char[] chars = word.toCharArray();
+        for (char c : chars) {
+            if (!Character.isLetter(c)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+
+        int question = JOptionPane.showConfirmDialog(null,"Хотите зарегистрироваться?","Question", JOptionPane.YES_NO_OPTION);
+        if (question==1) JOptionPane.showMessageDialog(null,"Зря...");
+
+        else if (question==0){
+
+            String login = JOptionPane.showInputDialog("Введите логин");
+            int count = login.length();
+            boolean haveSpace = containsWhiteSpace(login);
+            while (count<5 || haveSpace){
+                login = JOptionPane.showInputDialog("Введите логин");
+                count = login.length();
+                haveSpace = containsWhiteSpace(login);
+            }
+
+
+            String password = JOptionPane.showInputDialog("Введите пароль");
+            int countPassword = password.length();
+            boolean haveSpace1 = containsWhiteSpace(password);
+            boolean haveWord = isValidWord(password);
+
+            while (countPassword<8 || haveSpace1 || !haveWord){
+                password = JOptionPane.showInputDialog("Введите пароль");
+                countPassword = password.length();
+                haveSpace1 = containsWhiteSpace(password);
+                haveWord = isValidWord(password);
+            }
+
+            String passwordCheck = JOptionPane.showInputDialog("Повторите пароль");
+            if (passwordCheck.equals(password)) JOptionPane.showMessageDialog(null,"Спасибо за регистрацию!!!");
+            else {
+                while (!password.equals(passwordCheck)){
+                    passwordCheck = JOptionPane.showInputDialog("Повторите пароль");
+                }
+            }
+
+        }
+    }
+
+}
