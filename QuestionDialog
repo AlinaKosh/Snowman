@@ -1,0 +1,16 @@
+public class Main {
+
+    public static void main(String[] args) {
+
+        String question1 = JOptionPane.showInputDialog("Нравится ли вам Доктор Стрэдж?(да/нет)");
+        if (question1.equals("да"))JOptionPane.showMessageDialog(null,"Круто!!!");
+        else if (question1.equals("нет")) JOptionPane.showMessageDialog(null,"Жаль");
+
+        String question2 = JOptionPane.showInputDialog("Американская история ужасов крутая?(да/нет)");
+        if (question2.equals("да")) JOptionPane.showMessageDialog(null,"Улётная!!!");
+        else if (question2.equals("нет")) JOptionPane.showMessageDialog(null,"Зря ты так...");
+
+
+    }
+
+}
