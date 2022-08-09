@@ -9,6 +9,11 @@ public class Main {
         String question2 = JOptionPane.showInputDialog("Американская история ужасов крутая?(да/нет)");
         if (question2.equals("да")) JOptionPane.showMessageDialog(null,"Улётная!!!");
         else if (question2.equals("нет")) JOptionPane.showMessageDialog(null,"Зря ты так...");
+        
+        //Ещё 1 вариант 
+        int question2 = JOptionPane.showConfirmDialog(null,"Американская история ужасов крутая?","Question",JOptionPane.YES_NO_CANCEL_OPTION);
+        if (question2==0) JOptionPane.showMessageDialog(null,"Улётная!!!");
+        else if (question2==1) JOptionPane.showMessageDialog(null,"Зря ты так...");
 
 
     }
